@@ -222,7 +222,7 @@
                         }
 
                         $('#the-king-window').ready(function() {
-                           $('#mac-hd-window').css('background-image', 'url(/img/macHDBlur.jpg)');
+                           $('#mac-hd-window').css('background-image', 'url(img/macHDBlur.jpg)');
                            $('#the-king-window').show();
 
                            env.sounds.magicWord.play();
