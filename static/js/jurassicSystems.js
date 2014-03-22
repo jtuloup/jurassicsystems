@@ -38,12 +38,17 @@
          return ++env.maxIndex;
       }
 
+      api.playMainMusic = function() {
+         env.sounds.dennisMusic.play();
+      }
+
       api.init = function() {
          // HTML5 audio element detection
          if (Modernizr.audio.mp3 || Modernizr.audio.wav || Modernizr.audio.ogg) {
             var beepHTML5 = $('<audio preload="auto"/>'),
                 lockDownHTML5 = $('<audio preload="auto"/>'),
-                dennisMusicHTML5 = $('<audio preload="auto"/>');
+                dennisMusicHTML5 = $('<audio preload="auto"/>'),
+                magicWordHTML5 = $('<audio preload="auto"/>');
 
             beepHTML5.append('<source src="/snd/beep.ogg">');
             beepHTML5.append('<source src="/snd/beep.mp3">');
@@ -56,6 +61,16 @@
             dennisMusicHTML5.append('<source src="/snd/dennisMusic.ogg">');
             dennisMusicHTML5.append('<source src="/snd/dennisMusic.mp3">');
             dennisMusicHTML5.append('<source src="/snd/dennisMusic.wav">');
+
+            magicWordHTML5.append('<source src="/snd/magicWord.ogg">');
+            magicWordHTML5.append('<source src="/snd/magicWord.mp3">');
+
+            env.sounds.magicWord = {
+               play: function() {
+                  magicWordHTML5[0].load();
+                  magicWordHTML5[0].play();
+               }
+            };
 
             env.sounds.beep = {
                play: function() {
@@ -84,8 +99,12 @@
             dennisMusicHTML5.bind('ended', function() {
                env.sounds.dennisMusic.play();
             });
+
+            magicWordHTML5.bind('ended', function() {
+               env.sounds.magicWord.play();
+            });
          }  else {
-            sm.setup({ 
+            sm.setup({
                url: '/swf/soundManager/',
                onready: function() {
                   env.sounds.beep = sm.createSound({
@@ -106,6 +125,15 @@
                      url: '/snd/dennisMusic.mp3',
                      onfinish: function() {
                         sm.play('dennisMusic');
+                     }
+                  });
+
+                  env.sounds.magicWord = sm.createSound({
+                     id: 'magicWord',
+                     autoLoad: true,
+                     url: '/snd/magicWord.mp3',
+                     onfinish: function() {
+                        sm.play('magicWord');
                      }
                   });
                }
@@ -144,7 +172,7 @@
    });
 
    jpTerminal.addCommand({
-         name: 'access', 
+         name: 'access',
          summary: 'access a target environment on the Jurassic Systems grid',
          manPage: 'SYNOPSIS\n   access [SYSTEM_NAME]',
          command: function(env, inputLine) {
@@ -184,8 +212,8 @@
             }, 1000);
 
             setTimeout(function() {
-               $('#environment').animate({'left': '+=3000'}, 
-                  2000, 
+               $('#environment').animate({'left': '+=3000'},
+                  2000,
                   function() {
                      setTimeout(function() {
                         $('#irix-desktop').hide();
@@ -196,6 +224,9 @@
                         $('#the-king-window').ready(function() {
                            $('#mac-hd-window').css('background-image', 'url(/img/macHDBlur.jpg)');
                            $('#the-king-window').show();
+
+                           env.sounds.magicWord.play();
+
                            if ($(window).width() < 1200) {
                               setTimeout(function() {
                                  $('#home-key').css('z-index', '64000');
@@ -232,7 +263,7 @@
             arg = arg.replace(/s$/, '');
             arg = arg[0].toUpperCase() + arg.slice(1);
             arg = $('<div/>').text(arg).html();
-            
+
             output = '<div>' + arg + ' containment enclosure....</div>' +
                      '<table id="system-output"><tbody>' +
                      '<tr><td>Security</td><td>[OK]</td></tr>' +
@@ -331,7 +362,7 @@
    });
 
    jpTerminal.addCommand({
-         name: 'help', 
+         name: 'help',
          summary: 'list available commands',
          manPage: '',
          command: function(env, inputLine) {
@@ -396,6 +427,7 @@
             $('#intro').click(function() {
                $(this).fadeOut(1000);
                $('#intro-scene').attr('src', '');
+               jpTerminal.playMainMusic();
             });
          }
       }, 4500);

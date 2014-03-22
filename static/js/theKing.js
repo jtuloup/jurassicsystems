@@ -1,7 +1,39 @@
 (function($) {
-   $.ajax({
-      url : '/swf/theKing.swf'
-   });
+
+   var magicWord;
+
+   // HTML5 audio element detection
+   if (Modernizr.audio.mp3 || Modernizr.audio.wav || Modernizr.audio.ogg) {
+      var magicWordHTML5 = $('<audio preload="auto"/>');
+
+      magicWordHTML5.append('<source src="/snd/magicWord.mp3">');
+
+      magicWord = {
+         play: function() {
+            magicWordHTML5[0].load();
+            magicWordHTML5[0].play();
+         }
+      };
+
+      magicWordHTML5.bind('ended', function() {
+         magicWord.play();
+      });
+
+   }  else {
+      sm.setup({
+         url: '/swf/soundManager/',
+         onready: function() {
+            magicWord = sm.createSound({
+               id: 'magicWord',
+               autoLoad: true,
+               url: '/snd/magicWord.mp3'
+            });
+         },
+         onfinish: function() {
+            sm.play('magicWord');
+         }
+      });
+   }
 
    $(['theKingBlur.jpg',
       'macHDBlur.jpg',
@@ -15,6 +47,8 @@
       setTimeout(function() {
          $('#mac-hd-window').css('background-image', 'url(/img/macHDBlur.jpg)');
          $('#the-king-window').show();
+
+         magicWord.play();
 
          if ($(window).width() < 1200) {
             setTimeout(function() {
