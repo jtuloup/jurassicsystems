@@ -50,20 +50,20 @@
                 dennisMusicHTML5 = $('<audio preload="auto"/>'),
                 magicWordHTML5 = $('<audio preload="auto"/>');
 
-            beepHTML5.append('<source src="/snd/beep.ogg">');
-            beepHTML5.append('<source src="/snd/beep.mp3">');
-            beepHTML5.append('<source src="/snd/beep.wav">');
+            beepHTML5.append('<source src="snd/beep.ogg">');
+            beepHTML5.append('<source src="snd/beep.mp3">');
+            beepHTML5.append('<source src="snd/beep.wav">');
 
-            lockDownHTML5.append('<source src="/snd/lockDown.ogg">');
-            lockDownHTML5.append('<source src="/snd/lockDown.mp3">');
-            lockDownHTML5.append('<source src="/snd/lockDown.wav">');
+            lockDownHTML5.append('<source src="snd/lockDown.ogg">');
+            lockDownHTML5.append('<source src="snd/lockDown.mp3">');
+            lockDownHTML5.append('<source src="snd/lockDown.wav">');
 
-            dennisMusicHTML5.append('<source src="/snd/dennisMusic.ogg">');
-            dennisMusicHTML5.append('<source src="/snd/dennisMusic.mp3">');
-            dennisMusicHTML5.append('<source src="/snd/dennisMusic.wav">');
+            dennisMusicHTML5.append('<source src="snd/dennisMusic.ogg">');
+            dennisMusicHTML5.append('<source src="snd/dennisMusic.mp3">');
+            dennisMusicHTML5.append('<source src="snd/dennisMusic.wav">');
 
-            magicWordHTML5.append('<source src="/snd/magicWord.ogg">');
-            magicWordHTML5.append('<source src="/snd/magicWord.mp3">');
+            magicWordHTML5.append('<source src="snd/magicWord.ogg">');
+            magicWordHTML5.append('<source src="snd/magicWord.mp3">');
 
             env.sounds.magicWord = {
                play: function() {
@@ -185,7 +185,7 @@
 
          return;
       } else if (inputLine.split(' ').length > 2 && magicWord.trim() === 'please') {
-            $('#main-input').append($('<img id="asciiNewman" src="/img/asciiNewman.jpg" />'));
+            $('#main-input').append($('<img id="asciiNewman" src="img/asciiNewman.jpg" />'));
             $('#asciiNewman').load(function() {
                $('#' + env.active + ' .inner-wrap').scrollTop($('#' + env.active + ' .inner-wrap')[0].scrollHeight);
             });
@@ -410,12 +410,8 @@
          'macHDBlur.jpg',
          'asciiNewman.jpg',
          'zebraGirlWindow.jpg']).each(function() {
-            new Image().src = '/img/' + this;
+            new Image().src = 'img/' + this;
          });
-
-      $.ajax({
-         url : '/swf/theKing.swf'
-      });
 
       // remove boot screen
       setTimeout(function() {

@@ -6,7 +6,7 @@
    if (Modernizr.audio.mp3 || Modernizr.audio.wav || Modernizr.audio.ogg) {
       var magicWordHTML5 = $('<audio preload="auto"/>');
 
-      magicWordHTML5.append('<source src="/snd/magicWord.mp3">');
+      magicWordHTML5.append('<source src="snd/magicWord.mp3">');
 
       magicWord = {
          play: function() {
@@ -38,7 +38,7 @@
    $(['theKingBlur.jpg',
       'macHDBlur.jpg',
       'macHDFocus.jpg']).each(function() {
-         $('<img />')[0].src = '/img/' + this;
+         $('<img />')[0].src = 'img/' + this;
       });
 
    $('#the-king-window').draggable();
