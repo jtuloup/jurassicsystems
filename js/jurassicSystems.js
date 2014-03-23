@@ -418,14 +418,13 @@
          $('#irix-boot').remove();
          $('#main-buffer').focus();
 
-         if (!location.pathname.match(/system/)) {
-            $('#intro').show();
-            $('#intro').click(function() {
-               $(this).fadeOut(1000);
-               $('#intro-scene').attr('src', '');
-               jpTerminal.playMainMusic();
-            });
-         }
+         $('#intro').show();
+         $('#intro').click(function() {
+            $(this).fadeOut(1000);
+            $('#intro-scene').attr('src', '');
+            jpTerminal.playMainMusic();
+         });
+
       }, 4500);
 
       // listeners
